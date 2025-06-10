@@ -110,8 +110,8 @@ This project is licensed under the **Apache 2.0 License**.
 
 ## 📧 Contact
 
-Mohammed
-🌐 GitHub: [Im-Mohammed](https://github.com/Im-Mohammed)
+Muqtadir27
+🌐 GitHub: [Muqtadir27](https://github.com/Muqtadir27)
 
 ## ❤️ Acknowledgments
 
