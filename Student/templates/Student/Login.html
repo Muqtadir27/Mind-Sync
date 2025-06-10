@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{%load static%}
+<html style="font-size: 16px;" lang="en"><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>Page 2</title>
+    <link rel="stylesheet" href="{%static 'Student/css/nicepagestu.css'%}" media="screen">
+<link rel="stylesheet" href="{%static 'Student/css/Login.css'%}" media="screen">
+    <script class="u-script" type="text/javascript" src="{%static 'Student/js/jquery.js'%}" defer=""></script>
+    <script class="u-script" type="text/javascript" src="{%static 'Student/js/niceu.js'%}" defer=""></script>
+    <meta name="generator" content="Nicepage 7.7.3, nicepage.com">
+    <meta name="referrer" content="origin">
+    
+    
+    
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": "",
+		"url": "/"
+}</script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="Page 2">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="/">
+  <meta data-intl-tel-input-cdn-path="intlTelInput/"></head>
+  <body data-home-page="https://website6485451.nicepage.io/Page-2.html?version=f7b38224-b6ae-ee8e-b3b0-7d95f5f44c1e" data-home-page-title="Page 2" data-path-to-root="./" data-include-products="false" class="u-body u-xxl-mode" data-lang="en">
+    <section class="u-clearfix u-palette-1-light-3 u-valign-middle-lg u-valign-top-xl u-valign-top-xxl u-section-1" id="block-14" data-href="#">
+      <div class="data-layout-selected u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
+        <div class="u-layout">
+          <div class="u-layout-row">
+            <div class="u-container-style u-layout-cell u-size-30 u-layout-cell-1">
+              <div class="u-container-layout u-valign-top-lg u-valign-top-md u-valign-top-sm u-valign-top-xs u-container-layout-1">
+                <a href="{% url 'MindSync' %}" class="u-border-2 u-border-palette-1-light-3 u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-light-2 u-radius u-text-black u-btn-1"><span class="u-file-icon u-icon u-text-black u-icon-1"><img src="{%static 'Student/images/2099238-ed331750.png'%}" alt=""></span>&nbsp;Button
+                </a><span class="u-file-icon u-icon u-icon-2"><img src="{%static 'Student/images/456212.png'%}" alt=""></span>
+                <h3 class="u-text u-text-default u-text-1">Login</h3>
+                <div class="custom-expanded u-form u-form-1">
+                  <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="u-align-center u-form-group u-form-submit">
+                        <input type="submit" value="Login" class="u-btn u-btn-submit">
+                    </div>
+                </form>
+                </div>
+                <a href="{%url 'recovery' %}" class="u-active-none u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-light-1 u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-3">Forgot Password?</a>
+                <a href="{%url 'Signup' %}" class="u-active-none u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-light-1 u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-4">Don't Have Account?</a>
+              </div>
+            </div>
+            <div class="u-container-align-center u-container-style u-image u-layout-cell u-size-30 u-image-1" data-image-width="800" data-image-height="600">
+              <div class="u-container-layout u-container-layout-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+</body></html>
