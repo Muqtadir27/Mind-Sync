@@ -1,0 +1,210 @@
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f0f8ff; /* Dark  background */
+    color: #000000; /* Light font color */
+}
+
+/* Container */
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: #1e1e2f; /* Always dark */
+    color: white;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.sidebar nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    margin: 20px 0;
+}
+
+.sidebar nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.sidebar nav ul li a:hover {
+    color: #a0c4ff; /* Light blue on hover */
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    /* background-color removed to allow dynamic emotion-based background via JS */
+    padding: 40px;
+    overflow-y: auto;
+    transition: background-color 0.4s ease; /* smooth emotion bg change */
+}
+
+/* Home Page Header */
+.home-page h2 {
+    font-size: 36px; /* Increased font size */
+    margin-bottom: 25px;
+    color: #090909; /* Light font color */
+    font-weight: bold;
+}
+
+/* Quote Box */
+.quote-box {
+    background-color: #3b82f6; /* Blue background */
+    border-left: 5px solid #2563eb;
+    padding: 20px 25px;
+    margin-bottom: 40px;
+    font-style: italic;
+    font-size: 20px;
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Detection Button */
+button#detectBtn {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 16px 24px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 18px;
+}
+
+button#detectBtn:hover {
+    background-color: #1d4ed8;
+}
+
+/* Centered Button */
+.detect-btn-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+/* Emotion Result Output */
+.emotion-output {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.emotion-output img {
+    width: 300px; /* Larger GIF */
+    height: 300px;
+    display: block;
+    margin: 0 auto 15px auto;
+}
+
+.subject-suggestion {
+    font-size: 18px;
+    font-weight: 500;
+    color: #070707; /* Light color */
+}
+
+/* Subject Recommendation Cards */
+.subject-cards {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.subject-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid #4f46e5;
+    color: #02284e;
+    padding: 15px 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(99, 102, 241, 0.3);
+    transition: transform 0.3s ease;
+    min-width: 140px;
+    text-align: center;
+}
+
+.subject-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #60a5fa;
+}
+
+/* Emotion History Section */
+.emotion-history {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.emotion-history h3 {
+    font-size: 24px;
+    color: #101010;
+}
+
+#emotionHistoryList {
+    list-style-type: none;
+    padding: 0;
+    font-size: 16px;
+}
+
+#emotionHistoryList li {
+    background-color: #e0f7fa;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Project Info Section */
+.insight-card {
+    background-color: #2e2e3b;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.insight-card h4 {
+    font-size: 24px;
+    color: #f3f4f6;
+}
+
+.insight-card p {
+    font-size: 18px;
+    color: #b0b3b8;
+    line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .subject-cards {
+        flex-direction: column;
+    }
+}

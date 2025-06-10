@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="home-page">
+    <h2>Welcome, {{ user.username }} 👋</h2>
+
+    <!-- Project Insight -->
+    <div class="insight-card">
+        <h4>🎯 Project Insight</h4>
+        <p>
+            This platform uses real-time facial emotion detection to understand your mood and recommend study topics accordingly. 
+            It's especially tailored for individuals who benefit from emotion-aware learning — creating a personalized, motivating experience. ✨
+        </p>
+    </div>
+
+    <!-- Quote of the Day -->
+    <div class="quote-box">
+        <p><em>"{{ quote }}"</em></p>
+    </div>
+
+    <!-- Detection Button -->
+    <div class="detect-btn-container">
+        <button id="detectBtn">Detect Emotion via Face</button>
+    </div>
+
+    <div id="loadingText" style="text-align:center; display:none; font-weight: bold; margin-top: 20px; font-size: 18px;">
+        Detecting emotion...
+    </div>
+
+    <!-- Emotion Output -->
+    <div id="emotionResult" class="emotion-output">
+        <img id="emojiGif" src="" alt="Emotion GIF" style="display:none;">
+        <h3 id="recommendation"></h3>
+
+        <!-- Recommended Subjects Section -->
+        <div id="subjectRecommendations" class="subject-cards" style="display:none; margin-top: 20px;"></div>
+    </div>
+
+    <!-- Emotion History Section -->
+    <div class="emotion-history">
+        <h3>🧠 Emotion History</h3>
+        <ul id="emotionHistoryList"></ul>
+    </div>
+</div>
+
+<script>
+    const subjectMap = {
+        happy: ['DSA', 'Machine Learning', 'Open Source'],
+        sad: ['Art & Creativity', 'General Knowledge', 'Python Basics'],
+        fear: ['Math Foundation', 'Logical Reasoning', 'Easy Coding Tasks'],
+        angry: ['Meditation Techniques', 'Soft Skills', 'Stress-Free Quizzes'],
+        surprise: ['Fun Facts', 'Trivia Time', 'Interactive Games'],
+        disgust: ['Health & Hygiene', 'Biology Basics', 'Clean Code Practices'],
+        neutral: ['Mindfulness', 'Productivity Hacks', 'Calm Reading Material']
+    };
+
+    document.getElementById('detectBtn').addEventListener('click', function () {
+        document.getElementById("loadingText").style.display = "block";
+
+        setTimeout(() => {
+            fetch('/detect-face-emotion/')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("loadingText").style.display = "none";
+
+                    const emotion = data.emotion;
+
+                    const gif = {
+                        happy: "/static/images/happy.gif",
+                        sad: "/static/images/sad.gif",
+                        fear: "/static/images/fear.gif",
+                        angry: "/static/images/angry.gif",
+                        surprise: "/static/images/surprise.gif",
+                        disgust: "/static/images/disgust.gif",
+                        neutral: "/static/images/neutral.gif"
+                    }[emotion];
+
+                    const recommendation = {
+                        happy: "Recommended: Dive into DSA 🔥",
+                        sad: "Recommended: Easy subject to boost your mood 😊",
+                        fear: "Recommended: Start with Basic Maths 🧠",
+                        angry: "Take a short break 🧘‍♂️",
+                        surprise: "Fun Fact Time! 🧩",
+                        disgust: "Health Tip: Stay clean, stay strong 💧",
+                        neutral: "Take a deep breath and relax 🌿"
+                    }[emotion];
+
+                    document.getElementById("emojiGif").src = gif;
+                    document.getElementById("emojiGif").style.display = "block";
+                    document.getElementById("recommendation").innerText = recommendation;
+
+                    addToEmotionHistory(emotion);
+                    showSubjectCards(emotion);
+                });
+        }, 3000);
+    });
+
+    function showSubjectCards(emotion) {
+        const subjects = subjectMap[emotion] || [];
+        const container = document.getElementById("subjectRecommendations");
+        container.innerHTML = '';
+        const links = {
+            'DSA': 'https://www.geeksforgeeks.org/data-structures/',
+            'Machine Learning': 'https://www.coursera.org/learn/machine-learning',
+            'Open Source': 'https://opensource.guide/how-to-contribute/',
+            'Art & Creativity': 'https://www.skillshare.com/browse/creative',
+            'General Knowledge': 'https://www.worldatlas.com/articles/general-knowledge-questions-and-answers.html',
+            'Python Basics': 'https://www.w3schools.com/python/',
+            'Math Foundation': 'https://www.khanacademy.org/math',
+            'Logical Reasoning': 'https://www.indiabix.com/logical-reasoning/',
+            'Easy Coding Tasks': 'https://www.codewars.com/',
+            'Meditation Techniques': 'https://www.headspace.com/meditation',
+            'Soft Skills': 'https://www.coursera.org/learn/soft-skills',
+            'Stress-Free Quizzes': 'https://www.proprofs.com/quiz-school/',
+            'Fun Facts': 'https://www.thefactsite.com/',
+            'Trivia Time': 'https://www.sporcle.com/',
+            'Interactive Games': 'https://www.coolmathgames.com/',
+            'Health & Hygiene': 'https://kidshealth.org/en/kids/hygiene.html',
+            'Biology Basics': 'https://www.khanacademy.org/science/biology',
+            'Clean Code Practices': 'https://refactoring.guru/',
+            'Mindfulness': 'https://www.mindful.org/',
+            'Productivity Hacks': 'https://zapier.com/blog/productivity-tips/',
+            'Calm Reading Material': 'https://www.goodreads.com/shelf/show/calm'
+        };
+
+        subjects.forEach(subject => {
+            const card = document.createElement('div');
+            card.className = 'subject-card';
+            card.innerHTML = `<a href="${links[subject]}" target="_blank"><h4>${subject}</h4></a>`;
+            container.appendChild(card);
+        });
+
+        container.style.display = 'flex';
+    }
+
+    function addToEmotionHistory(emotion) {
+        const list = document.getElementById('emotionHistoryList');
+        const item = document.createElement('li');
+        item.innerText = `Emotion: ${emotion.charAt(0).toUpperCase() + emotion.slice(1)} - Detected at ${new Date().toLocaleTimeString()}`;
+        list.prepend(item);
+    }
+</script>
+{% endblock %}

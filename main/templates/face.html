@@ -1,0 +1,431 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mind Sync - Emotion Detection{% endblock %}
+
+{% block content %}
+<div class="emotion-detection-container">
+    <!-- Start Button -->
+    <div id="start-section" class="text-center p-5">
+        <h2>Face Emotion Detection</h2>
+        <p>Click start to begin the adaptive learning experience</p>
+        <button id="start-detection" class="btn btn-primary btn-lg">Start</button>
+    </div>
+
+    <!-- Main Content Area (Hidden initially) -->
+    <div id="content-area" class="d-none">
+        <div class="row">
+            <!-- Webcam Feed (Small) -->
+            <div class="col-3">
+                <div class="webcam-container">
+                    <video id="webcam" autoplay playsinline width="100%"></video>
+                    <div class="emotion-display">
+                        <p>Current emotion: <span id="detected-emotion">Analyzing...</span></p>
+                        <p>Current topic: <span id="current-topic">DSA</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Adaptive Content (Large) -->
+            <div class="col-9">
+                <div id="content-display" class="content-display">
+                    <!-- Online Blog Content (Default) -->
+                    <div id="blog-content" class="content-item active">
+                        <h3>DSA Learning Material</h3>
+                        <div class="blog-container">
+                            <iframe id="blog-viewer" src="" width="100%" height="600px"></iframe>
+                        </div>
+                    </div>
+                    
+                    <!-- YouTube Video Player (For sad emotion) -->
+                    <div id="video-content" class="content-item">
+                        <h3>DSA Video Tutorial</h3>
+                        <div class="video-container">
+                            <iframe id="youtube-player" width="100%" height="500" 
+                                src="" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                    
+                    <!-- Online Game Container (For bored emotion) -->
+                    <div id="game-content" class="content-item">
+                        <h3>DSA Learning Game</h3>
+                        <div class="game-container">
+                            <iframe id="online-game" src="" width="100%" height="600" frameborder="0"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Topic Selection Modal -->
+<div class="modal fade" id="topicSelectionModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Select Learning Topic</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="topic-select">Choose your learning topic:</label>
+                    <select class="form-control" id="topic-select">
+                        <option value="dsa">Data Structures & Algorithms</option>
+                        <option value="python">Python Programming</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="ml">Machine Learning</option>
+                        <option value="database">Database Systems</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirm-topic">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Content Switch Modal -->
+<div class="modal fade" id="contentCompletionModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Content in Progress</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>You're currently engaged with content. Would you like to switch based on your emotion?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue Current Content</button>
+                <button type="button" class="btn btn-primary" id="switch-content">Switch Content</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-detection"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-landmarks-detection"></script>
+<script>
+    // Global variables
+    let webcam;
+    let model;
+    let isContentActive = false;
+    let currentEmotion = null;
+    let currentTopic = "dsa";
+    let emotionCheckInterval;
+    let contentCompletionStatus = {
+        'blog': { started: false, completed: false },
+        'video': { started: false, completed: false },
+        'game': { started: false, completed: false }
+    };
+
+    // Content mapping for different topics and emotions
+    const contentMap = {
+        "dsa": {
+            "blog": "https://www.geeksforgeeks.org/data-structures/",
+            "video": "https://www.youtube.com/embed/8hly31xKli0", // DSA video
+            "game": "https://www.codingame.com/playgrounds/explore"  // Interactive coding games
+        },
+        "python": {
+            "blog": "https://realpython.com/python-beginners-guide/",
+            "video": "https://www.youtube.com/embed/rfscVS0vtbw", // Python tutorial
+            "game": "https://www.codingame.com/playgrounds/52377/python-course-for-beginners"
+        },
+        "javascript": {
+            "blog": "https://javascript.info/",
+            "video": "https://www.youtube.com/embed/PkZNo7MFNFg", // JavaScript tutorial
+            "game": "https://www.codingame.com/playgrounds/explore/javascript"
+        },
+        "ml": {
+            "blog": "https://www.kaggle.com/learn/intro-to-machine-learning",
+            "video": "https://www.youtube.com/embed/7eh4d6sabA0", // ML video
+            "game": "https://teachablemachine.withgoogle.com/"
+        },
+        "database": {
+            "blog": "https://www.tutorialspoint.com/dbms/index.htm",
+            "video": "https://www.youtube.com/embed/HXV3zeQKqGY", // SQL tutorial
+            "game": "https://sqlbolt.com/"
+        }
+    };
+
+    // Start button click handler
+    document.getElementById('start-detection').addEventListener('click', async () => {
+        // Show topic selection modal first
+        const topicModal = new bootstrap.Modal(document.getElementById('topicSelectionModal'));
+        topicModal.show();
+    });
+
+    // Topic confirmation handler
+    document.getElementById('confirm-topic').addEventListener('click', async () => {
+        // Get selected topic
+        currentTopic = document.getElementById('topic-select').value;
+        document.getElementById('current-topic').textContent = currentTopic.toUpperCase();
+        
+        // Close topic modal
+        bootstrap.Modal.getInstance(document.getElementById('topicSelectionModal')).hide();
+        
+        // Start the actual content
+        document.getElementById('start-section').classList.add('d-none');
+        document.getElementById('content-area').classList.remove('d-none');
+        
+        // Initialize webcam
+        await setupWebcam();
+        
+        // Load emotion detection model
+        await loadModel();
+        
+        // Load initial content
+        loadContentForEmotion('neutral');
+        
+        // Start emotion detection
+        startEmotionDetection();
+    });
+
+    // Setup webcam access
+    async function setupWebcam() {
+        webcam = document.getElementById('webcam');
+        
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: { width: 300, height: 225 }
+            });
+            webcam.srcObject = stream;
+            
+            return new Promise((resolve) => {
+                webcam.onloadedmetadata = () => {
+                    resolve(webcam);
+                };
+            });
+        } catch (error) {
+            console.error('Error accessing webcam:', error);
+            alert('Error accessing webcam. Please check permissions and try again.');
+        }
+    }
+
+    // Load emotion detection model
+    async function loadModel() {
+        try {
+            // In a real implementation, you would load appropriate models
+            // This is a placeholder for TensorFlow.js face-detection
+            model = await faceDetection.createDetector(
+                faceDetection.SupportedModels.MediaPipeFaceDetector,
+                { runtime: 'tfjs' }
+            );
+        } catch (error) {
+            console.error('Error loading model:', error);
+        }
+    }
+
+    // Start emotion detection
+    function startEmotionDetection() {
+        // Initial content is blog (default)
+        showContent('blog');
+        
+        // Set interval to detect emotions periodically
+        emotionCheckInterval = setInterval(detectEmotion, 5000); // Check every 5 seconds
+    }
+
+    // Detect emotion from webcam feed
+    async function detectEmotion() {
+        if (!webcam || !model) return;
+        
+        try {
+            // In a real implementation, this would process the webcam frame
+            // and return an emotion prediction
+            const faces = await model.estimateFaces(webcam);
+            
+            if (faces.length > 0) {
+                // This is a placeholder for actual emotion detection logic
+                // In a real implementation, you would process facial landmarks or features
+                // to determine the emotion
+                
+                // For demo purposes, we'll randomly select emotions
+                const emotions = ['neutral', 'happy', 'sad', 'bored'];
+                const detectedEmotion = emotions[Math.floor(Math.random() * emotions.length)];
+                
+                // Update displayed emotion
+                document.getElementById('detected-emotion').textContent = detectedEmotion;
+                
+                // Adapt content based on emotion if no content is actively being consumed
+                if (!isContentActive) {
+                    adaptContent(detectedEmotion);
+                }
+            } else {
+                document.getElementById('detected-emotion').textContent = 'No face detected';
+            }
+        } catch (error) {
+            console.error('Error detecting emotion:', error);
+        }
+    }
+
+    // Load content for specific emotion and current topic
+    function loadContentForEmotion(emotion) {
+        // Get content URLs based on topic and emotion
+        let contentType;
+        
+        switch (emotion) {
+            case 'sad':
+                contentType = 'video';
+                break;
+            case 'bored':
+                contentType = 'game';
+                break;
+            default:
+                contentType = 'blog';
+                break;
+        }
+        
+        // Get content URL from map or fetch from API
+        getContentUrl(currentTopic, contentType).then(url => {
+            loadSpecificContent(contentType, url);
+        });
+    }
+    
+    // Get content URL (either from map or API)
+    async function getContentUrl(topic, contentType) {
+        // In production, you might want to fetch from API instead
+        // const response = await fetch(`/api/content/?topic=${topic}&type=${contentType}`);
+        // const data = await response.json();
+        // return data.url;
+        
+        // For simplicity, we'll use the predefined map
+        return contentMap[topic][contentType];
+    }
+    
+    // Load specific content by type and URL
+    function loadSpecificContent(contentType, url) {
+        switch (contentType) {
+            case 'blog':
+                document.getElementById('blog-viewer').src = url;
+                break;
+            case 'video':
+                document.getElementById('youtube-player').src = url;
+                break;
+            case 'game':
+                document.getElementById('online-game').src = url;
+                break;
+        }
+    }
+
+    // Adapt content based on detected emotion
+    function adaptContent(emotion) {
+        // Check if we should adapt content or keep current
+        if (currentEmotion === emotion) return;
+        
+        currentEmotion = emotion;
+        
+        // Check if any content is currently active
+        if (isContentInProgress()) {
+            // Show modal asking if user wants to switch content
+            const contentModal = new bootstrap.Modal(document.getElementById('contentCompletionModal'));
+            contentModal.show();
+            return;
+        }
+        
+        // If no content is active, adapt immediately
+        loadContentForEmotion(emotion);
+        
+        switch (emotion) {
+            case 'sad':
+                showContent('video');
+                break;
+            case 'bored':
+                showContent('game');
+                break;
+            default:
+                showContent('blog'); // Default to blog for neutral, happy, etc.
+                break;
+        }
+    }
+    
+    // Check if any content is in progress
+    function isContentInProgress() {
+        return (contentCompletionStatus.blog.started && !contentCompletionStatus.blog.completed) ||
+               (contentCompletionStatus.video.started && !contentCompletionStatus.video.completed) ||
+               (contentCompletionStatus.game.started && !contentCompletionStatus.game.completed);
+    }
+
+    // Show specific content type
+    function showContent(contentType) {
+        // Hide all content items
+        document.querySelectorAll('.content-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // Show selected content
+        switch (contentType) {
+            case 'blog':
+                document.getElementById('blog-content').classList.add('active');
+                contentCompletionStatus.blog.started = true;
+                break;
+            case 'video':
+                document.getElementById('video-content').classList.add('active');
+                contentCompletionStatus.video.started = true;
+                
+                // For YouTube videos, we can't easily track completion
+                // In a production app, consider using YouTube API to track video progress
+                break;
+            case 'game':
+                document.getElementById('game-content').classList.add('active');
+                contentCompletionStatus.game.started = true;
+                
+                // For external games, we can't easily track completion
+                // Consider using postMessage API if you have control over the game
+                break;
+        }
+        
+        isContentActive = true;
+    }
+    
+    // Handle switch content button in modal
+    document.getElementById('switch-content').addEventListener('click', () => {
+        // Reset content completion status
+        const currentActiveContent = getCurrentActiveContent();
+        if (currentActiveContent) {
+            contentCompletionStatus[currentActiveContent].completed = true;
+        }
+        
+        isContentActive = false;
+        
+        // Close modal
+        bootstrap.Modal.getInstance(document.getElementById('contentCompletionModal')).hide();
+        
+        // Adapt content based on current emotion
+        adaptContent(currentEmotion);
+    });
+    
+    // Get currently active content type
+    function getCurrentActiveContent() {
+        if (document.getElementById('blog-content').classList.contains('active')) {
+            return 'blog';
+        } else if (document.getElementById('video-content').classList.contains('active')) {
+            return 'video';
+        } else if (document.getElementById('game-content').classList.contains('active')) {
+            return 'game';
+        }
+        return null;
+    }
+
+    // Clean up when page is unloaded
+    window.addEventListener('beforeunload', () => {
+        if (emotionCheckInterval) {
+            clearInterval(emotionCheckInterval);
+        }
+        
+        // Stop webcam
+        if (webcam && webcam.srcObject) {
+            webcam.srcObject.getTracks().forEach(track => track.stop());
+        }
+    });
+</script>
+{% endblock %}
