@@ -1,0 +1,486 @@
+.u-section-1 {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .u-section-1 .u-sheet-1 {
+    min-height: 693px;
+  }
+  
+  .u-section-1 .u-image-1 {
+    min-height: 607px;
+    margin-top: 31px;
+    margin-bottom: 55px;
+    height: auto;
+    background-repeat: no-repeat;
+    background-image: url("https://static.vecteezy.com/system/resources/previews/030/805/488/non_2x/abstract-tree-growing-from-a-book-mental-training-and-education-concept-free-photo.jpg");
+    --radius: 50px;
+  }
+  
+  .u-section-1 .u-container-layout-1 {
+    padding: 30px;
+  }
+  
+  .u-section-1 .u-text-1 {
+    margin: 36px 869px 0 41px;
+  }
+  
+  .u-section-1 .u-text-2 {
+    margin: 20px 16px 0 38px;
+  }
+  
+  .u-section-1 .u-text-3 {
+    font-weight: 700;
+    margin: 18px 592px 0 38px;
+  }
+  
+  @media (max-width: 1199px) {
+    .u-section-1 .u-sheet-1 {
+      min-height: 400px;
+    }
+  
+    .u-section-1 .u-image-1 {
+      background-position: 50% 50%;
+      height: auto;
+    }
+  
+    .u-section-1 .u-text-1 {
+      margin-right: 710px;
+      margin-left: 0;
+    }
+  
+    .u-section-1 .u-text-2 {
+      margin-right: 0;
+      margin-left: 0;
+    }
+  
+    .u-section-1 .u-text-3 {
+      margin-right: 429px;
+      margin-left: 0;
+    }
+  }
+  
+  @media (max-width: 991px) {
+    .u-section-1 .u-text-1 {
+      margin-right: 490px;
+    }
+  
+    .u-section-1 .u-text-3 {
+      margin-right: 209px;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .u-section-1 .u-container-layout-1 {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  
+    .u-section-1 .u-text-1 {
+      margin-right: 350px;
+    }
+  
+    .u-section-1 .u-text-3 {
+      margin-right: 69px;
+    }
+  }
+  
+  @media (max-width: 575px) {
+    .u-section-1 .u-sheet-1 {
+      min-height: 483px;
+    }
+  
+    .u-section-1 .u-image-1 {
+      min-height: 403px;
+      margin-bottom: 50px;
+    }
+  
+    .u-section-1 .u-text-1 {
+      margin-right: 150px;
+    }
+  
+    .u-section-1 .u-text-3 {
+      margin-right: 0;
+    }
+  }.u-section-2 .u-sheet-1 {
+    min-height: 744px;
+  }
+  
+  .u-section-2 .u-list-1 {
+    margin-top: 58px;
+    margin-bottom: 58px;
+  }
+  
+  .u-section-2 .u-repeater-1 {
+    grid-auto-columns: calc(33.3333% - 20px);
+    grid-template-columns: repeat(3, calc(33.3333% - 20px));
+    min-height: 628px;
+    grid-gap: 30px;
+  }
+  
+  .u-section-2 .u-list-item-1 {
+    background-image: none;
+  }
+  
+  .u-section-2 .u-container-layout-1 {
+    padding: 0;
+  }
+  
+  .u-section-2 .u-image-1 {
+    width: 240px;
+    height: 240px;
+    background-image: url("../images/isolated-portrait-stylish-young-mixed-race-woman-with-dark-shaggy-hair-touching-her-chin.jpg");
+    background-position: 50% 50%;
+    margin: 29px auto 0;
+  }
+  
+  .u-section-2 .u-text-1 {
+    margin: 33px 30px 0;
+  }
+  
+  .u-section-2 .u-text-2 {
+    margin: 23px 30px 0;
+  }
+  
+  .u-section-2 .u-text-3 {
+    margin: 23px 30px 0;
+  }
+  
+  .u-section-2 .u-list-item-2 {
+    --radius: 50px;
+  }
+  
+  .u-section-2 .u-container-layout-2 {
+    padding: 0;
+  }
+  
+  .u-section-2 .u-image-2 {
+    width: 240px;
+    height: 240px;
+    background-image: url("../images/attractive-mixed-race-male-with-positive-smile-shows-white-teeth-keeps-hands-stomach-being-high-spirit-wears-white-shirt-rejoices-positive-moments-life-people-emotions-concept.jpg");
+    background-position: 50% 50%;
+    margin: 29px auto 0;
+  }
+  
+  .u-section-2 .u-text-4 {
+    font-size: 1.25rem;
+    font-weight: 400;
+    text-transform: none;
+    margin: 33px 30px 0;
+  }
+  
+  .u-section-2 .u-text-5 {
+    font-weight: 400;
+    margin: 23px 30px 0;
+  }
+  
+  .u-section-2 .u-text-6 {
+    margin: 23px 30px 0;
+  }
+  
+  .u-section-2 .u-list-item-3 {
+    background-image: none;
+  }
+  
+  .u-section-2 .u-container-layout-3 {
+    padding: 0;
+  }
+  
+  .u-section-2 .u-image-3 {
+    width: 240px;
+    height: 240px;
+    object-position: 50% 18.34%;
+    background-image: url("../images/2148859448.jpg");
+    background-position: 50% 50%;
+    margin: 29px auto 0;
+  }
+  
+  .u-section-2 .u-text-7 {
+    font-size: 1.25rem;
+    font-weight: 400;
+    text-transform: none;
+    margin: 33px 30px 0;
+  }
+  
+  .u-section-2 .u-text-8 {
+    font-weight: 400;
+    margin: 23px 30px 0;
+  }
+  
+  .u-section-2 .u-text-9 {
+    margin: 23px 30px 0;
+  }
+  
+  @media (max-width: 1199px) {
+    .u-section-2 .u-sheet-1 {
+      min-height: 645px;
+    }
+  
+    .u-section-2 .u-list-1 {
+      margin-top: 53px;
+      margin-bottom: 60px;
+    }
+  
+    .u-section-2 .u-repeater-1 {
+      grid-auto-columns: calc(33.333333333333336% - 20px);
+      grid-template-columns: repeat(3, calc(33.333333333333336% - 20px));
+      min-height: 512px;
+    }
+  
+    .u-section-2 .u-text-1 {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  
+    .u-section-2 .u-text-2 {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  
+    .u-section-2 .u-text-3 {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  
+    .u-section-2 .u-text-4 {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  
+    .u-section-2 .u-text-5 {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  
+    .u-section-2 .u-text-6 {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  
+    .u-section-2 .u-text-7 {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  
+    .u-section-2 .u-text-8 {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  
+    .u-section-2 .u-text-9 {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+  
+  @media (max-width: 991px) {
+    .u-section-2 .u-sheet-1 {
+      min-height: 1348px;
+    }
+  
+    .u-section-2 .u-list-1 {
+      margin-top: 58px;
+      margin-bottom: 58px;
+    }
+  
+    .u-section-2 .u-repeater-1 {
+      grid-auto-columns: calc(50% - 15px);
+      grid-template-columns: repeat(2, calc(50% - 15px));
+      min-height: 1234px;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .u-section-2 .u-sheet-1 {
+      min-height: 1412px;
+    }
+  
+    .u-section-2 .u-repeater-1 {
+      grid-auto-columns: calc(100% - 0px);
+      grid-template-columns: 100%;
+    }
+  }
+  
+  @media (max-width: 575px) {
+    .u-section-2 .u-sheet-1 {
+      min-height: 1281px;
+    }
+  
+    .u-section-2 .u-repeater-1 {
+      grid-auto-columns: 100%;
+    }
+  } .u-section-3 {
+    background-repeat: no-repeat;
+    background-image: url("../images/futuristic-business-scene-with-ultra-modern-ambiance.jpg");
+  }
+  
+  .u-section-3 .u-sheet-1 {
+    min-height: 566px;
+  }
+  
+  @media (max-width: 1199px) {
+     .u-section-3 {
+      background-position: 50% 50%;
+    }
+  
+    .u-section-3 .u-sheet-1 {
+      min-height: 400px;
+    }
+  }.u-section-4 .u-sheet-1 {
+    min-height: 360px;
+  }
+  
+  .u-section-4 .u-layout-wrap-1 {
+    margin-top: 60px;
+    margin-bottom: 0;
+  }
+  
+  .u-section-4 .u-layout-cell-1 {
+    min-height: 284px;
+  }
+  
+  .u-section-4 .u-container-layout-1 {
+    padding: 30px;
+  }
+  
+  .u-section-4 .u-text-1 {
+    margin-bottom: 0;
+    margin-top: 0;
+    font-size: 3rem;
+  }
+  
+  .u-section-4 .u-text-2 {
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+  
+  .u-section-4 .u-layout-cell-2 {
+    min-height: 284px;
+  }
+  
+  .u-section-4 .u-container-layout-2 {
+    padding: 30px;
+  }
+  
+  .u-section-4 .u-form-1 {
+    height: 68px;
+    width: 510px;
+    margin: 59px 0 0;
+  }
+  
+  .u-section-4 .u-input-1 {
+    --radius: 20px;
+  }
+  
+  .u-section-4 .u-btn-1 {
+    background-image: none;
+  }
+  
+  @media (max-width: 1199px) {
+    .u-section-4 .u-sheet-1 {
+      min-height: 334px;
+    }
+  
+    .u-section-4 .u-layout-wrap-1 {
+      position: relative;
+    }
+  
+    .u-section-4 .u-layout-cell-1 {
+      min-height: 234px;
+    }
+  
+    .u-section-4 .u-layout-cell-2 {
+      min-height: 234px;
+    }
+  
+    .u-section-4 .u-form-1 {
+      width: 410px;
+    }
+  }
+  
+  @media (max-width: 991px) {
+    .u-section-4 .u-sheet-1 {
+      min-height: 445px;
+    }
+  
+    .u-section-4 .u-layout-cell-1 {
+      min-height: 325px;
+    }
+  
+    .u-section-4 .u-text-1 {
+      width: auto;
+      font-size: 2.25rem;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  
+    .u-section-4 .u-text-2 {
+      margin-top: 20px;
+    }
+  
+    .u-section-4 .u-layout-cell-2 {
+      min-height: 325px;
+    }
+  
+    .u-section-4 .u-form-1 {
+      width: 300px;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .u-section-4 .u-sheet-1 {
+      min-height: 583px;
+    }
+  
+    .u-section-4 .u-layout-cell-1 {
+      min-height: 100px;
+    }
+  
+    .u-section-4 .u-container-layout-1 {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  
+    .u-section-4 .u-text-2 {
+      width: auto;
+    }
+  
+    .u-section-4 .u-layout-cell-2 {
+      min-height: 227px;
+    }
+  
+    .u-section-4 .u-container-layout-2 {
+      padding: 22px 10px;
+    }
+  
+    .u-section-4 .u-form-1 {
+      margin-top: 56px;
+      height: 127px;
+      margin-right: initial;
+      margin-left: initial;
+      width: auto;
+    }
+  }
+  
+  @media (max-width: 575px) {
+    .u-section-4 .u-sheet-1 {
+      min-height: 552px;
+    }
+  
+    .u-section-4 .u-text-1 {
+      font-size: 1.875rem;
+    }
+  
+    .u-section-4 .u-layout-cell-2 {
+      min-height: 100px;
+    }
+  
+    .u-section-4 .u-form-1 {
+      margin-top: 81px;
+      width: auto;
+      margin-right: initial;
+      margin-left: initial;
+    }
+  }
